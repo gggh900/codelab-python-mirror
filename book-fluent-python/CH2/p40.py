@@ -1,5 +1,7 @@
 #!/usr/bin/python3
 
+# need python3.10 to work.
+
 metro_areas=[
     ('Tokyo', 'JP', 36.933, (35.689, 139.69)),
     ('Delhi', 'IN', 21.935, (28.613, 77.308)),
