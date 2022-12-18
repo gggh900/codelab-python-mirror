@@ -6,3 +6,6 @@ s='bicycle'
 for i in range(10, 1, -1):
     print("slice stride: ", i)
     print(s[::i])
+for i in range(10, 1, -1):
+    print("slice stride: ", i)
+    print(s[:5:i])
