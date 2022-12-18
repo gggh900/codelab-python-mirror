@@ -1,6 +1,6 @@
 import time
 
-DEFAULT_FMT='[elapsed:0.8f}s] {name}({args}) -> {result}'
+DEFAULT_FMT='[{elapsed:0.8f}s] {name}({args}) -> {result}'
 
 def clock(fmt=DEFAULT_FMT):
     def decorate(func):
@@ -10,20 +10,20 @@ def clock(fmt=DEFAULT_FMT):
             elapsed=time.perf_counter()-t0
             name=func.__name__
             arg_str=', '.join(repr(arg) for arg in args)
-            print(f'[{elapsed:0.8f}s] {name}({arg_str})->{result!r}')
+            print(fmt.format(**locals()))
             return result
         return clocked
     return decorate
 
-@clock
+@clock('{name}: {elapsed}s')
 def snooze(seconds):
     time.sleep(seconds)
 
-def main():
-    print('*' * 40, 'Calling snooze(.123)')
-    for i in range(3):
-        snooze(.123)
+@clock()
+def snooze1(seconds):
+    time.sleep(seconds)
 
-if __name__ == '__main__':
-    main()
-
+for i in range(3):
+    snooze(.123)
+for i in range(3):
+    snooze1(.123)
