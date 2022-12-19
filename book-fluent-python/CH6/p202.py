@@ -8,11 +8,12 @@ a_int=1
 a_tuple=(1,2,3)
 a_float=1.110
 a_str="1111"
+a_dict={1: 300}
 field_width=30
 mutable_list=[]
 immutable_list=[]
 
-for obj in (a_list, a_int, a_tuple, a_float, a_str):
+for obj in (a_list, a_int, a_tuple, a_float, a_str, a_dict):
     print("-" * 50)
     print(f'{"obj before mod":30}', type(obj), id(obj), obj)
     objAddrInit=id(obj)
@@ -25,13 +26,16 @@ for obj in (a_list, a_int, a_tuple, a_float, a_str):
         obj+= 100
 
     if type(obj)==float:
-        obj+1.3122
+        obj+=1.3122
 
     if type(obj)==tuple:
         obj += (1,100)
     
     if type(obj)==list:
         obj.append(100)
+
+    if type(obj)==dict:
+        obj[2]=400
 
     print(f'{"obj after mod":30}', type(obj), id(obj), obj)
     print(f'{"obj2":30}', type(obj2), id(obj2), obj2)
