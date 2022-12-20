@@ -22,6 +22,15 @@ class Vector:
     def __mul__(self, scalar):
         return Vector(self.x * scalar, self.y * scalar)
 
+    def __lt__(self, other):
+        return abs(self) < abs(other)
+
+    def __iadd__(self, other):
+        return self +  other
+
+#    def __gt___(self, other):
+#        return abs(self) < abs(other)
+
 v1=Vector(2,4)
 v2=Vector(2,1)
 print(v1+v2)
@@ -31,3 +40,14 @@ print(abs(v))
 
 print(v*3)
 print(abs(v*3))
+
+print(str(v))
+
+print(type(v))
+print(type(str(v)))
+
+print(v1 < v2)
+print(v1 > v2)
+
+print(v1 == v2)
+
