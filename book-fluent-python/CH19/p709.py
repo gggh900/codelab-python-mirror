@@ -15,12 +15,13 @@ def spin(msg: str, done: synchronize.Event) -> None:
     print(f'\r{blanks}\r', end='')
     
 def slow() -> int:
-    time.sleep(3)
+    time.sleep(20)
     return 42
 
 def supervisor() -> int:
     done=Event()
     spinner=Process(target=spin, args=('Thinking!', done))
+    print(f'spinner object: {spinner}')
     spinner.start()
     result=slow()
     done.set()
