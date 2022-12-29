@@ -22,9 +22,6 @@ def printFunctionEntry(func):
 
 #@printFunctionEntry
 def randomSleep(n:int)->RandomSleepResult:
-    #t0=perf_counter()
-    #res=is_prime(n)
-    #return RandomSleepResult(n, res, perf_counter()-t0)
     sleepDuration=random.randint(20, 40)
     time.sleep(sleepDuration)
     return RandomSleepResult(sleepDuration)
@@ -32,7 +29,7 @@ def randomSleep(n:int)->RandomSleepResult:
 @printFunctionEntry
 def worker(jobs: JobQueue)->None:
     while n:=jobs.get():
-        result.put(randomSleep(n))    
+        put(randomSleep(n))    
     #results.put(RandomSleepResult(0, False, 0.0))
         
 @printFunctionEntry
@@ -42,7 +39,7 @@ def start_jobs(procs: int, jobs: JobQueue)->None:
     for _ in range(procs):
         proc=Process(target=worker, args=(jobs))
         proc.start()
-        jobs.put()
+        jobs.put(0)
 
 if len(sys.argv) < 2:
     procs=cpu_count()
