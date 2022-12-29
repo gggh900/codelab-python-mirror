@@ -7,11 +7,10 @@ from multiprocessing import Process, SimpleQueue, cpu_count
 from multiprocessing import queues
 NUMBERS=range(20, 40)
 
+JobQueue=queues.SimpleQueue[int]
+
 class RandomSleepResult(NamedTuple):
     elapsed: float
-
-JobQueue=queues.SimpleQueue[int]
-ResultQueue=queues.SimpleQueue[RandomSleepResult]
 
 def printFunctionEntry(func):
     def inner(*args):
@@ -30,7 +29,7 @@ def randomSleep(n:int)->RandomSleepResult:
     time.sleep(sleepDuration)
     return RandomSleepResult(sleepDuration)
 
-#@printFunctionEntry
+@printFunctionEntry
 def worker(jobs: JobQueue)->None:
     while n:=jobs.get():
         result.put(randomSleep(n))    
@@ -50,7 +49,6 @@ if len(sys.argv) < 2:
 else:
     procs=int(sys.argv[1])
 
-jobs: JobQueue=SimpleQueue()
-#results: ResultsQueue=SimpleQueue()
+jobs=SimpleQueue()
 start_jobs(procs, jobs)
     
