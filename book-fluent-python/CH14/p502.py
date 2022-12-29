@@ -30,7 +30,6 @@ print(list(d.keys()))
 d['b']='letter B'
 print('b' in d)
 print(d['a'])
-
 print(d.get('B'))
 print(list(d.keys()))
     
