@@ -22,23 +22,24 @@ def printFunctionEntry(func):
         return result
     return inner
 
-#@printFunctionEntry
+@printFunctionEntry
 def randomSleep(n:int)->RandomSleepResult:
+    print("RandomSleep param n", n)
     sleepDuration=random.randint(1, 3)
     time.sleep(sleepDuration)
+    print(f'randomSleep: slept for {sleepDuration}')
     return RandomSleepResult(sleepDuration)
 
-#@printFunctionEntry
+@printFunctionEntry
 def worker(jobs: JobQueue, results: ResultQueue)->None:
-    print("worker: entered...")
     while n:=jobs.get():
         results.put(randomSleep(n))    
     results.put(RandomSleepResult(0.0))
         
 @printFunctionEntry
 def start_jobs(procs: int, jobs: JobQueue)->None:
-    for n in NUMBERS:
-        jobs.put(n)
+#   for n in NUMBERS:
+#       jobs.put(n)
     for _ in range(procs):
         proc=Process(target=worker, args=(jobs, results))
         proc.start()
@@ -49,6 +50,7 @@ if len(sys.argv) < 2:
 else:
     procs=int(sys.argv[1])
 
+print(f'procs: {procs}')
 jobs=SimpleQueue()
 results=SimpleQueue()
 print(f'Jobs (type) {jobs} {type(jobs)}')
