@@ -7,10 +7,12 @@ from multiprocessing import Process, SimpleQueue, cpu_count
 from multiprocessing import queues
 NUMBERS=range(20, 40)
 
-JobQueue=queues.SimpleQueue[int]
-
 class RandomSleepResult(NamedTuple):
     elapsed: float
+
+JobQueue=queues.SimpleQueue[int]
+ResultQueue=queues.SimpleQueue[RandomSleepResult]
+print(f'JobQueue (type) {JobQueue} {type(JobQueue)}')
 
 def printFunctionEntry(func):
     def inner(*args):
@@ -22,22 +24,23 @@ def printFunctionEntry(func):
 
 #@printFunctionEntry
 def randomSleep(n:int)->RandomSleepResult:
-    sleepDuration=random.randint(20, 40)
+    sleepDuration=random.randint(1, 3)
     time.sleep(sleepDuration)
     return RandomSleepResult(sleepDuration)
 
-@printFunctionEntry
-def worker(jobs: JobQueue)->None:
+#@printFunctionEntry
+def worker(jobs: JobQueue, results: ResultQueue)->None:
+    print("worker: entered...")
     while n:=jobs.get():
-        put(randomSleep(n))    
-    #results.put(RandomSleepResult(0, False, 0.0))
+        results.put(randomSleep(n))    
+    results.put(RandomSleepResult(0.0))
         
 @printFunctionEntry
 def start_jobs(procs: int, jobs: JobQueue)->None:
     for n in NUMBERS:
         jobs.put(n)
     for _ in range(procs):
-        proc=Process(target=worker, args=(jobs))
+        proc=Process(target=worker, args=(jobs, results))
         proc.start()
         jobs.put(0)
 
@@ -47,5 +50,7 @@ else:
     procs=int(sys.argv[1])
 
 jobs=SimpleQueue()
+results=SimpleQueue()
+print(f'Jobs (type) {jobs} {type(jobs)}')
 start_jobs(procs, jobs)
     

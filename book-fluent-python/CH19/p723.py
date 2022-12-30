@@ -3,27 +3,39 @@ from time import perf_counter
 from typing import NamedTuple
 from multiprocessing import Process, SimpleQueue, cpu_count
 from multiprocessing import queues
+from primePy import primes
+from primePy import is_prime, NUMBERS
 
-from primes import is_prime, NUMBERS
-   
+
+def printFunctionEntry(func):
+    def inner(*args):
+        name=func.__name__
+        print(f'[{name} entered...')
+        result=func(*args)
+        return result
+    return inner
+
 class PrimeResult(NamedTuple):
     n: int
     prime: bool
     elapsed: float
 
 JobQueue=queues.SimpleQueue[int]
-ResultQueue=queues.SimpleQueue[PrimeResult]
+ResultsQueue=queues.SimpleQueue[PrimeResult]
 
+@printFunctionEntry
 def check(n:int)->PrimeResult:
     t0=perf_counter()
     res=is_prime(n)
     return PrimeResult(n, res, perf_counter()-t0)
 
-def worker(jobs: JobQueue, results: ResultQueue)->None:
-    while n:=jobs.get():
-        result.put(check(n))    
+@printFunctionEntry
+def worker(jobs: JobQueue, results: ResultsQueue)->None:
+    #while n:=jobs.get():
+    result.put(check(n))    
     results.put(PrimeResults(0, False, 0.0))
         
+@printFunctionEntry
 def start_jobs(procs: int, jobs: JobQueue, results: ResultsQueue)->None:
     for n in NUMBERS:
         jobs.put(n)
@@ -32,6 +44,7 @@ def start_jobs(procs: int, jobs: JobQueue, results: ResultsQueue)->None:
         proc.start()
         jobs.put()
 
+@printFunctionEntry
 def main()->None:
     if len(sys.argv) < 2:
         procs=cpu_count()
@@ -48,7 +61,7 @@ def main()->None:
     elapsed=perf_counter() - t0
     print(f'{checked} checks in {elapsed:.2f}s')
     
-def report(procs: int, results: ResultQueue) -> int:
+def report(procs: int, results: ResultsQueue) -> int:
     checked = 0
     procs_done = 0
     while procs_done < procs:
@@ -64,5 +77,5 @@ def report(procs: int, results: ResultQueue) -> int:
 
     return checked
 
-if __name__ == '__Main__':
+if __name__ == '__main__':
     main()  
