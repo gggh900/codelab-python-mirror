@@ -1,3 +1,9 @@
+# vector class implementation with special methods.
+# special methods allow class to be used with standard arithmetic operations.
+# For example __add__ implementation allows to add two vector classes.
+# Set CONFIG_ENABLE_ADD_METHOD to 0 and see what happens.
+
+CONFIG_ENABLE_ADD_METHOD=1
 import math
 
 class Vector:
@@ -14,10 +20,11 @@ class Vector:
     def __bool__(self):
         return bool(abs(self))
 
-    def __add__(self, other):
-        x=self.x+other.x
-        y=self.y+other.y
-        return Vector(x,y)
+    if CONFIG_ENABLE_ADD_METHOD:
+        def __add__(self, other):
+            x=self.x+other.x
+            y=self.y+other.y
+            return Vector(x,y)
 
     def __mul__(self, scalar):
         return Vector(self.x * scalar, self.y * scalar)
