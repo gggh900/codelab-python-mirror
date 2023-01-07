@@ -1,3 +1,5 @@
+''' dictionary comprehension
+'''
 #!/usr/bin/python3
 
 dial_codes=[
