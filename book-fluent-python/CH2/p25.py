@@ -1,5 +1,6 @@
 # List comprehensions and readibility.
-
+# To compare the performance of typical classical for loop and 
+# list comprehensions, refer to p25-2.py
 #!/usr/bin/python3
 import code
 symbols="$c%="
