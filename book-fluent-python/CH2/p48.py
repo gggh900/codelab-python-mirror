@@ -1,3 +1,7 @@
+'''
+slice object.
+third parameter in slice operator specifies slice stride.
+'''
 #!/usr/bin/python3
 
 # when slicing is used with 3 parameters s[a:b:c], c specifies stride.

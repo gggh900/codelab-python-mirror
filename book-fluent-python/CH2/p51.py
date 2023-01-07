@@ -1,3 +1,7 @@
+'''
+building list of lists.
+
+'''
 #!/usr/bin/python3
 
 board=[['_']*3 for i in range(3)]

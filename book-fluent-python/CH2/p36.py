@@ -1,3 +1,6 @@
+'''
+using * to grab excess items.
+'''
 #!/usr/bin/python3
 import os
 path, filename = os.path.split('/home/luciano/.ssh/id_rsa.pub')

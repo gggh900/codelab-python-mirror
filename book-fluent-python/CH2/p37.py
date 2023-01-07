@@ -1,3 +1,6 @@
+'''
+nested unpacking example.
+'''
 #!/usr/bin/python3
 
 metro_areas=[
