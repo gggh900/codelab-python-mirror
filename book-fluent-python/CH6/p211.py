@@ -1,3 +1,9 @@
+''' another example of deep vs shallow copy.
+bus2: shallow copy, as a result, when you drop bill from bus1, bus2 gets affected 
+because passengers member is pointing to same object.
+bus3 is not affected because it made deep copy meaning object members i.e.
+passengers has been made a separate copy.
+'''
 import copy
 class Bus:
     def __init__(self, passengers=None):
