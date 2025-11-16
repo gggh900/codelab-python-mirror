@@ -26,11 +26,17 @@ class FrenchDeck:
         def __getitem__(self, position):
             return self._cards[position]
 
+    def __repr__(self):
+        return "FrenchDeck class object"
+
 beer_card=Card('7','diamons')
 print(beer_card)
 
 deck=FrenchDeck()
 print(len(deck))
+print(deck)
+quit(0)
+
 print(deck[0])
 print(deck[-1])
 
