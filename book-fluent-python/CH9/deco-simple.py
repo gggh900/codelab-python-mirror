@@ -1,7 +1,9 @@
 def deco(func):
     def inner():
+        print("inner_in()...")
         func()
-    return func
+        print("inner_out()...")
+    return inner
     
 @deco
 def target():
