@@ -21,3 +21,5 @@ jobs:
         run: python -c "import sys; print(sys.version)"
       - name: Install dependencies
         run: python -m pip install --upgrade pip setuptools wheel numpy pandas
+      - name: Test
+        run: python book-fluent-python/CH1/p10-vector-class__repr__abs__add__mul__.py
