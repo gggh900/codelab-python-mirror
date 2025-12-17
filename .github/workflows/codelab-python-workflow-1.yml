@@ -22,4 +22,9 @@ jobs:
       - name: Install dependencies
         run: python -m pip install --upgrade pip setuptools wheel numpy pandas
       - name: Test
-        run: python book-fluent-python/CH1/p10-vector-class__repr__abs__add__mul__.py
+        run: mkdir -p log/book-fluent-python/CH1 ; python book-fluent-python/CH1/p10-vector-class__repr__abs__add__mul__.py 2>&1 | tee log/book-fluent-python/CH1/p10-vector-class__repr_abs_add_mul__.log
+      - name: Upload pytest test results
+        uses: actions/upload-artifact@v4
+        with:
+          name: Logs:
+          path: log/book-fluent-python/CH1/p10-vector-class__repr_abs_add_mul__.log
